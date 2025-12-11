@@ -54,7 +54,8 @@ const deleteUserFromDB = inngest.createFunction(
   { event: "clerk/user.deleted" },
   async ({ event }) => {
     const { id } = event.data;
-    await prisma.user.delete({ where: { clerkId: id } });
+    // Use deleteMany to avoid error if user doesn't exist in our DB
+    await prisma.user.deleteMany({ where: { clerkId: id } });
   }
 );
 
