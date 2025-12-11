@@ -85,7 +85,7 @@ export function createApp(options: CreateAppOptions = {}) {
   app.use("/api/cart", cartRoutes);
 
   // Health check
-  app.get("/api/health", (req, res) => {
+  app.get("/api/health", (req: Request, res: Response) => {
     res.status(200).json({ message: "Success" });
   });
 
@@ -93,7 +93,7 @@ export function createApp(options: CreateAppOptions = {}) {
   if (ENV.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../admin/dist")));
 
-    app.get("*", (req, res) => {
+    app.get("*", (req: Request, res: Response) => {
       res.sendFile(path.join(__dirname, "../admin", "dist", "index.html"));
     });
   }

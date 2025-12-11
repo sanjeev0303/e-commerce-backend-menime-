@@ -13,7 +13,7 @@ let isShuttingDown = false;
 
 const closeHttpServer = () =>
   new Promise<void>((resolve, reject) => {
-    server.close((err) => {
+    server.close((err: Error | undefined) => {
       if (err) return reject(err);
       resolve();
     });
