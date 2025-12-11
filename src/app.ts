@@ -2,7 +2,6 @@ import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
-import path from "path";
 import { clerkMiddleware } from "@clerk/express";
 import { serve } from "inngest/express";
 
@@ -27,7 +26,6 @@ type CreateAppOptions = {
 
 export function createApp(options: CreateAppOptions = {}) {
   const app = express();
-  const __dirname = path.resolve();
 
   // Trust proxy for proper IP detection behind load balancers/reverse proxies
   if (options.trustProxy ?? ENV.NODE_ENV === "production") {
@@ -89,14 +87,10 @@ export function createApp(options: CreateAppOptions = {}) {
     res.status(200).json({ message: "Success" });
   });
 
-  // Production static files
-  if (ENV.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../admin/dist")));
-
-    app.get("*", (req: Request, res: Response) => {
-      res.sendFile(path.join(__dirname, "../admin", "dist", "index.html"));
-    });
-  }
+  // Root route
+  app.get("/", (req: Request, res: Response) => {
+    res.status(200).json({ message: "Menime API is running" });
+  });
 
   // 404 handler
   app.use((_req: Request, res: Response) => {
