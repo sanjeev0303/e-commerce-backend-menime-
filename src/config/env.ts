@@ -15,4 +15,5 @@ export const ENV = {
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
   LOG_LEVEL: process.env.LOG_LEVEL,
   CLIENT_URL: process.env.CLIENT_URL,
+  RENDER_EXTERNAL_URL: process.env.RENDER_EXTERNAL_URL,
 };

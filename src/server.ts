@@ -14,8 +14,8 @@ let keepAliveTimer: NodeJS.Timeout | null = null;
 
 const startKeepAlive = () => {
   if (ENV.NODE_ENV === "production") {
-    const baseUrl = process.env.RENDER_EXTERNAL_URL || `http://localhost:${port}`;
-    
+    const baseUrl = ENV.RENDER_EXTERNAL_URL || `http://localhost:${port}`;
+
     keepAliveTimer = setInterval(async () => {
       try {
         const response = await fetch(`${baseUrl}/api/health`);
@@ -24,7 +24,7 @@ const startKeepAlive = () => {
         appLogger.warn({ error }, "⚠️ Keep-alive ping failed");
       }
     }, KEEP_ALIVE_INTERVAL);
-    
+
     appLogger.info({ intervalMinutes: 13 }, "🕐 Keep-alive cron job started");
   }
 };
