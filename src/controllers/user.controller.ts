@@ -221,8 +221,12 @@ export async function getWishlist(req: Request, res: Response) {
 
 export async function getMe(req: Request, res: Response) {
   try {
+    console.log("📡 getMe: Request received");
+    
     // User is already attached by protectRoute middleware (auto-created if needed)
     const user = req.user!;
+    
+    console.log("✅ getMe: Returning user:", user.email);
 
     res.status(200).json({
       id: user.id,
@@ -233,7 +237,7 @@ export async function getMe(req: Request, res: Response) {
       createdAt: user.createdAt,
     });
   } catch (error) {
-    console.error("Error in getMe controller:", error);
+    console.error("❌ getMe: Error in controller:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
