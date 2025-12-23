@@ -6,6 +6,7 @@ import {
     addToWishlist,
     deleteAddress,
     getAddresses,
+    getMe,
     getWishlist,
     removeFromWishlist,
     updateAddress,
@@ -14,6 +15,9 @@ import {
 const router = Router();
 
 router.use(protectRoute);
+
+// Get current user (also auto-creates user if not exists via protectRoute middleware)
+router.get("/me", getMe);
 
 // address routes
 router.post("/addresses", addAddress);

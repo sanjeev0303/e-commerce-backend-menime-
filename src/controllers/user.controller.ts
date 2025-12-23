@@ -218,3 +218,22 @@ export async function getWishlist(req: Request, res: Response) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
+export async function getMe(req: Request, res: Response) {
+  try {
+    // User is already attached by protectRoute middleware (auto-created if needed)
+    const user = req.user!;
+
+    res.status(200).json({
+      id: user.id,
+      clerkId: user.clerkId,
+      email: user.email,
+      name: user.name,
+      imageUrl: user.imageUrl,
+      createdAt: user.createdAt,
+    });
+  } catch (error) {
+    console.error("Error in getMe controller:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
