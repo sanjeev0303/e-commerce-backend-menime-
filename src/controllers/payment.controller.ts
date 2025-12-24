@@ -51,7 +51,7 @@ export async function createRazorpayOrder(req: Request, res: Response) {
 
     // Calculate totals
     const subtotal = cartItems.reduce(
-      (sum, item) => sum + item.product.price * item.quantity,
+      (sum, item) => sum + Number(item.product.price) * item.quantity,
       0
     );
     const shipping = 10.0; // $10 shipping fee
@@ -167,7 +167,7 @@ export async function verifyPayment(req: Request, res: Response) {
           items: {
             create: cartItems.map((item) => ({
               name: item.product.name,
-              price: item.product.price,
+              price: Number(item.product.price),
               quantity: item.quantity,
               image: item.product.images?.[0] || "",
               productId: item.product.id,
