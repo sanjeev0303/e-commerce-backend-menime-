@@ -64,10 +64,12 @@ export async function createRazorpayOrder(req: Request, res: Response) {
     const amountInPaise = Math.round(totalAmount * 100);
 
     // Create Razorpay order
+    // Receipt must be <= 40 characters per Razorpay docs
+    const shortUserId = user.id.slice(-8); // Last 8 chars of user ID
     const options = {
       amount: amountInPaise,
       currency: "INR", // Change to your preferred currency
-      receipt: `receipt_${Date.now()}_${user.id}`,
+      receipt: `rcpt_${Date.now()}_${shortUserId}`, // ~28 chars total
       notes: {
         userId: user.id,
         clerkId: user.clerkId,
