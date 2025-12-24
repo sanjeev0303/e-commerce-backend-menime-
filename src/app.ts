@@ -16,6 +16,7 @@ import orderRoutes from "./routes/order.route";
 import reviewRoutes from "./routes/review.route";
 import productRoutes from "./routes/product.route";
 import cartRoutes from "./routes/cart.route";
+import paymentRoutes from "./routes/payment.route";
 
 
 type CreateAppOptions = {
@@ -81,6 +82,7 @@ export function createApp(options: CreateAppOptions = {}) {
   app.use("/api/reviews", reviewRoutes);
   app.use("/api/products", productRoutes);
   app.use("/api/cart", cartRoutes);
+  app.use("/api/payment", paymentRoutes);
 
   // Health check
   app.get("/api/health", (req: Request, res: Response) => {
